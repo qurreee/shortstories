@@ -12,6 +12,11 @@
             @csrf
             <input type="text" name="title" placeholder="title">
             <textarea name="body" placeholder="Write your story..."></textarea>
+            <div style="background-color: aquamarine; margin:5px; text-color:black">
+                @foreach ($genres as $genre)
+                <input type="checkbox" name="genres[]" value="{{ $genre->id }}"> {{ $genre->genre_name }}<br>
+                @endforeach
+            </div>
             <button>Upload</button>
         </form>
     </div>

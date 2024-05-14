@@ -19,4 +19,8 @@ class Story extends Model
     {
         return $this->hasMany(Like::class, 'story_id');
     }
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'genre_tags', 'story_id', 'genre_id');
+    }
 }

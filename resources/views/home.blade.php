@@ -6,7 +6,7 @@
     <title>Home</title>
 </head>
 <body>
-    @auth
+    
         logged in
         <form action="/create-post" method="POST">
             @csrf
@@ -30,10 +30,5 @@
             @endforeach
         </div>
 
-
-
-    @else
-        not logged in
-    @endauth
 </body>
 </html>

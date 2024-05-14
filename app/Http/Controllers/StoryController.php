@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Follower;
+use App\Models\GenreTag;
 use App\Models\Like;
 use App\Models\Story;
 use Illuminate\Http\Request;
@@ -19,9 +20,16 @@ class StoryController extends Controller
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['user_id'] = auth()->id();
 
-        Story::create($incomingFields);
+        $story = Story::create($incomingFields);
+
+        if ($request->has('genres')) {
+            $selectedGenres = $request->input('genres');
+            $story->genres()->attach($selectedGenres);
+        }
+
         return redirect('/home');
     }
+
 
     public function view($id)
     {
@@ -84,5 +92,18 @@ class StoryController extends Controller
             $newfoll->save();
         }
         return redirect()->back();
+    }
+
+    public function edit($id, Request $request)
+    {
+        $val = $request->input('edit');
+
+        if ($val == 1) {
+            return redirect('/story/{id}/edit');
+        } else if ($val == 2) {
+            GenreTag::where('story_id', $id)->delete();
+            Story::find($id)->delete();
+            return redirect('/home');
+        }
     }
 }
