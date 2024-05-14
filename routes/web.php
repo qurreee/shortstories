@@ -4,6 +4,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoryController;
+use App\Http\Middleware\Authenticate;
+use App\Models\Genre;
 use App\Models\Story;
 
 Route::get('/', function () {
@@ -14,29 +16,37 @@ Route::get('/register', function () {
     return view('register');
 });
 
-Route::get('/home', function () {
-    $stories = Story::all();
-    return view('home', ['stories' => $stories]);
-});
-
-Route::post('/create-post', function () {
-    return view('/newpost');
-});
 //user
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
 
-//upload
-Route::post('upload-post', [StoryController::class, 'upload']);
+Route::middleware('auth')->group(function () {
+    Route::get('/home', function () {
+        $stories = Story::orderBy('created_at', 'desc')->get();
+        return view('home', ['stories' => $stories]);
+    });
 
-//viewstory
-Route::get('/story/{id}', [StoryController::class, 'view']);
-Route::post('/story/{id}/like', [StoryController::class, 'like']);
+    Route::post('/create-post', function () {
+        $genres = Genre::all();
+        return view('/newpost', ['genres' => $genres]);
+    });
 
-//follow
-Route::post('/story/{id}/follow', [StoryController::class, 'follow']);
+    //upload
+    Route::post('/upload-post', [StoryController::class, 'upload']);
+    //edit
+    Route::get('/story/{id}/edit', [StoryController::class, 'edit']);
+    Route::post('/story/{id}/edit', [StoryController::class, 'edit']);
+    //viewstory
+    Route::get('/story/{id}', [StoryController::class, 'view']);
 
-Route::get('/coba', function () {
-    return view('coba');
+    // Route::get('/story/{id}/delete', [StoryController::class, 'delete']);
+    Route::post('/story/{id}/like', [StoryController::class, 'like']);
+
+    //follow
+    Route::post('/story/{id}/follow', [StoryController::class, 'follow']);
+});
+
+Route::get('coba', function () {
+    return view('tailwind.login');
 });

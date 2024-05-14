@@ -8,6 +8,9 @@
 <body>
     <div style="background: gray; margin:10px">
         <h2>LOGIN</h2>
+        @if ($errors->any())
+            <h4>{{$errors->first()}}</h4>
+        @endif
         <form action="/login" method="POST">
             @csrf
             username

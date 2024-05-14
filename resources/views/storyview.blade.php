@@ -22,8 +22,16 @@
             @endif
         @endif
     </form>
-    
-
+    @php
+        $user = auth()->user();
+     @endphp
+     @if ($story->user_id == $user->id)
+     <form action="/story/{{$story['id']}}/edit" method="GET">
+         @csrf
+         <button type="submit" name="edit" value="1">edit</button>
+         <button type="submit" name="edit" value="2">delete</button>
+     </form>
+    @endif
 
     <p>{{$story['body']}}</p>
     <form action="/story/{{$story->id}}/like" method="POST">
