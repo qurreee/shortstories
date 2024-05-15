@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Follower;
-use App\Models\Genre;
-use App\Models\GenreTag;
 use App\Models\Like;
+use App\Models\Genre;
 use App\Models\Story;
+use App\Models\Follower;
+use App\Models\GenreTag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StoryController extends Controller
 {
@@ -15,12 +16,19 @@ class StoryController extends Controller
     {
         $incomingFields = $request->validate([
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['user_id'] = auth()->id();
 
+        if($request->hasFile('cover')){
+            $cover = $request->file('cover');
+            $covername = time() . '_' . $cover->getClientOriginalName();
+            $cover->storeAs('public/picfolder',$covername);
+            $incomingFields['cover'] = $covername;
+        }
         $story = Story::create($incomingFields);
 
         if ($request->has('genres')) {
@@ -125,5 +133,43 @@ class StoryController extends Controller
             $story->delete();
             return redirect()->route('home');
         }
+    }
+
+    public function stories(){
+        $topstories = Story::select('stories.id', 'stories.title', 'stories.body', DB::raw('COUNT(likes.story_id) as like_count'))
+    ->leftJoin('likes', 'stories.id', '=', 'likes.story_id')
+    ->groupBy('stories.id', 'stories.title', 'stories.body')
+    ->orderByDesc('like_count')
+    ->limit(5)
+    ->get();
+        // genres
+        $genres = Genre::withCount('stories')->orderBy('stories_count', 'desc')->limit(3)->get();
+
+        $genre1 = $genres[0]->genre_name;
+        $genres1 = $genres[0]->stories;
+
+        // Genre 2
+        $genre2 = $genres[1]->genre_name;
+        $genres2 = $genres[1]->stories;
+
+        // Genre 3
+        $genre3 = $genres[2]->genre_name;
+        $genres3 = $genres[2]->stories;
+
+
+
+
+        $stories = Story::orderBy('created_at', 'desc')->get();
+        // tinggal ganti ke tailwind.home
+        return view('tailwind.home',
+        ['stories' => $stories,
+        'topstories' => $topstories,
+        'genre1' => $genre1,
+        'genre2' => $genre2,
+        'genre3' => $genre3,
+        'genres1' => $genres1,
+        'genres2' => $genres2,
+        'genres3' => $genres3,
+    ]);
     }
 }

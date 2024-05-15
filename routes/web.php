@@ -4,9 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoryController;
-use App\Http\Middleware\Authenticate;
 use App\Models\Genre;
-use App\Models\Story;
 
 Route::get('/', function () {
     return view('tailwind.login');
@@ -22,10 +20,8 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', function () {
-        $stories = Story::orderBy('created_at', 'desc')->get();
-        return view('home', ['stories' => $stories]);
-    })->name('home');
+
+    Route::get('/home', [StoryController::class, 'stories'])->name('home');
 
     Route::post('/create-post', function () {
         $genres = Genre::all();
@@ -38,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/story/{id}/edit',[StoryController::class, 'gotoedit']);
     Route::post('/story/{id}/edit', [StoryController::class, 'edit']);
     //viewstory
-    Route::get('/story/{id}', [StoryController::class, 'view'])->name('story.view');;
+    Route::get('/story/{id}', [StoryController::class, 'view']);
 
     //like
     Route::post('/story/{id}/like', [StoryController::class, 'like']);
@@ -47,6 +43,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/story/{id}/follow', [StoryController::class, 'follow']);
 });
 
-Route::get('coba', function () {
-    return view('tailwind.home');
-});
+
+Route::get('/coba', [StoryController::class, 'stories']);
