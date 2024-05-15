@@ -6,8 +6,7 @@
     <title>Home</title>
 </head>
 <body>
-    
-        logged in
+
         <form action="/create-post" method="POST">
             @csrf
             <button>Upload new Story</button>

@@ -48,5 +48,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('coba', function () {
-    return view('tailwind.login');
+    return view('tailwind.home');
 });
