@@ -9,7 +9,7 @@ use App\Models\Genre;
 use App\Models\Story;
 
 Route::get('/', function () {
-    return view('login');
+    return view('tailwind.login');
 });
 
 Route::get('/register', function () {
