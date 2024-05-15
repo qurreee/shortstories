@@ -13,7 +13,7 @@ Route::get('/', function () {
 });
 
 Route::get('/register', function () {
-    return view('register');
+    return view('tailwind.register');
 });
 
 //user
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
         $stories = Story::orderBy('created_at', 'desc')->get();
         return view('home', ['stories' => $stories]);
-    });
+    })->name('home');
 
     Route::post('/create-post', function () {
         $genres = Genre::all();
@@ -35,12 +35,12 @@ Route::middleware('auth')->group(function () {
     //upload
     Route::post('/upload-post', [StoryController::class, 'upload']);
     //edit
-    Route::get('/story/{id}/edit', [StoryController::class, 'edit']);
+    Route::get('/story/{id}/edit',[StoryController::class, 'gotoedit']);
     Route::post('/story/{id}/edit', [StoryController::class, 'edit']);
     //viewstory
-    Route::get('/story/{id}', [StoryController::class, 'view']);
+    Route::get('/story/{id}', [StoryController::class, 'view'])->name('story.view');;
 
-    // Route::get('/story/{id}/delete', [StoryController::class, 'delete']);
+    //like
     Route::post('/story/{id}/like', [StoryController::class, 'like']);
 
     //follow

@@ -15,4 +15,5 @@ class Genre extends Model
     {
         return $this->belongsToMany(Story::class, 'genre_tags', 'genre_id', 'story_id');
     }
+    
 }
