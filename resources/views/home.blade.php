@@ -3,11 +3,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
+    @vite(['resources/js/app.js'])
     <title>Home</title>
 </head>
 <body>
-    
-        logged in
+    <header>
+        <x-navbar/>
+    </header>
+    <main class="mt-20">
         <form action="/create-post" method="POST">
             @csrf
             <button>Upload new Story</button>
@@ -21,14 +25,15 @@
             <h2>New Stories!</h2>
             @foreach($stories as $story)
             <a href="/story/{{$story['id']}}" style="text-decoration: none; color:black;">
-                <div style="background-color: darkgray; padding:10px; margin:10px;">
-                    <h3>{{$story['title']}}</h3>
-                    <h3>Written by {{$story->writer->name}}</h3>
-                    {{$story['body']}}
+                <div class=" bg-gray-400 mt-3 grid">
+                    <h3 class="text-bold">{{$story['title']}}</h3>
+                    <h3 class=" text-wrap flex">Written by {{$story->writer->name}}</h3>
                 </div>
             </a>
             @endforeach
         </div>
+    </main>
+        
 
 </body>
 </html>
