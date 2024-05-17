@@ -158,7 +158,6 @@ class StoryController extends Controller
 
 
 
-
         $stories = Story::orderBy('created_at', 'desc')->get();
         // tinggal ganti ke tailwind.home
         return view('tailwind.home',

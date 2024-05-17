@@ -16,14 +16,14 @@ Route::get('/register', function () {
 
 //user
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/logout', [UserController::class, 'logout']);
+Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/home', [StoryController::class, 'stories'])->name('home');
 
-    Route::post('/create-post', function () {
+    Route::get('/create-post', function () {
         $genres = Genre::all();
         return view('/newpost', ['genres' => $genres]);
     });
@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/story/{id}/edit',[StoryController::class, 'gotoedit']);
     Route::post('/story/{id}/edit', [StoryController::class, 'edit']);
     //viewstory
-    Route::get('/story/{id}', [StoryController::class, 'view']);
+    Route::get('/story/{id}', [StoryController::class, 'view'])->name('story.view');
 
     //like
     Route::post('/story/{id}/like', [StoryController::class, 'like']);
@@ -44,4 +44,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/coba', [StoryController::class, 'stories']);
+Route::get('/coba', function(){
+    return view('tailwind.try');
+});
