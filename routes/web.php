@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/create-post', function () {
         $genres = Genre::all();
-        return view('/newpost', ['genres' => $genres]);
+        return view('tailwind.newstory', ['genres' => $genres]);
     });
 
     //upload

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+s<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,7 @@
 </head>
 <body>
     <x-navbar/>
+    {{-- head --}}
     <section class="bg-white dark:bg-gray-900 w-screen h-screen flex justify-center items-center">
         <div class="grid w-screen px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 container">
             <div class="mr-auto place-self-center lg:col-span-7">
