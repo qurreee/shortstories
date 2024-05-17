@@ -8,6 +8,7 @@
 </head>
 <body>
     <x-navbar/>
+    
     <main class="mt-20">
         <h1>{{$story['title']}}</h1>
         @if ($story->cover && $story->cover !== 'null')
@@ -99,6 +100,6 @@
         });
     </script> --}}
     
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 </html>
