@@ -14,5 +14,5 @@
     <li>Start your XAMPP Apache and MySQL</li>
     <li>Open terminal and run <code>npm run dev</code> so the Tailwind css and Flowbite can run</li>
     <li>Either run <code>php artisan serve</code>, or setup the host and vhost on your device</li>
+    <li>Download CKEditor5.zip from the main branch, Extract it, and put it in the <code>\storage\app\public\assets\vendor</code>></li>
 </ol>
-
