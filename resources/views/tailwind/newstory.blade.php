@@ -44,8 +44,8 @@
                                     </div>
                                 </div>
                                 <div class="max-w-sm ">
-                                    <label class="mb-2 text-lg font-medium text-gray-900 dark:text-white">Genres</label>
-                                    <div class="mx-auto sm:mx-0 py-5 px-10 mb-5 border border-gray-300 rounded-lg bg-white">
+                                    <label class="mb-2 text-lg font-medium text-gray-900 dark:text-white ">Genres</label>
+                                    <div class="mx-auto sm:mx-0 py-5 px-10 mb-5 border border-gray-300 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-600 ">
                                         @foreach ($genres as $genre)
                                         <div class="flex items-center mb-2">
                                             <input id="checkbox{{ $genre->id }}" name="genres[]" type="checkbox" value="{{ $genre->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" >
@@ -57,8 +57,8 @@
                             </div>
                             {{-- text editor --}}
                             <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
-                                <label for="editor" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Your story</label>
-                                <div class=" p-5 border border-gray-300 rounded-lg bg-white justify-normal">
+                                <label for="editor" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white ">Your story</label>
+                                <div class=" p-5 border border-gray-300 rounded-lg bg-white justify-normal dark:bg-gray-800 dark:border-gray-600 ">
                                         <textarea name="body" id="editor"></textarea>
                                 </div>
                             </div>

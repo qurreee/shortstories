@@ -10,6 +10,9 @@ use App\Models\Story;
 Route::get('/', function () {
     return view('tailwind.login');
 });
+Route::get('/login', function () {
+    return view('tailwind.login');
+});
 
 Route::get('/register', function () {
     return view('tailwind.register');

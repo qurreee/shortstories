@@ -10,7 +10,7 @@
                   <span class="sr-only">Toggle sidebar</span>
                 </button>
                 <a href="/home" class="flex mr-4">
-                  <img src="{{URL('storage/webresource/magic-book_5321654.png')}}" class="mr-3 h-8 hidden sm:block" alt="FlowBite Logo" />
+                  <img src="{{URL('storage/photo/webresource/magic-book_5321654.png')}}" class="mr-3 h-8 hidden sm:block" alt="FlowBite Logo" />
                   <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ShortStories</span>
                 </a>
                 @if(Auth::check())
@@ -96,9 +96,9 @@
                 <button type="button" class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
                     <span class="sr-only">Open user menu</span>
                     @if (auth()->check() && auth()->user()->pic != null && auth()->user()->pic)
-                    <img class="w-8 h-8 rounded-full" src="{{asset('storage/profilepic'). auth()->user()->pic}}" alt="user">
+                    <img class="w-8 h-8 rounded-full" src="{{asset('storage/photo/profilepic'). auth()->user()->pic}}" alt="user">
                     @else
-                    <img class="w-8 h-8 rounded-full" src="{{asset('storage/webresource/pp.jpeg')}}" alt="user">
+                    <img class="w-8 h-8 rounded-full" src="{{asset('storage/photo/webresource/pp.jpeg')}}" alt="user">
                     @endif
                     
                 </button>

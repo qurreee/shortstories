@@ -30,7 +30,7 @@ s<!DOCTYPE html>
                     <button id="scroll" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Browse Stories</button>
             </div>
             <div class="hidden lg:mt-0 lg:col-span-5 lg:block">
-                <img src="{{URL('storage/webresource/book_landing.png')}}" alt="mockup">
+                <img src="{{URL('storage/photo/webresource/book_landing.png')}}" alt="mockup">
             </div>
         </div>
     </section>
@@ -46,7 +46,7 @@ s<!DOCTYPE html>
                 @foreach ($topstories->take(5) as $story)
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{{URL('storage/webresource/book_landing.png')}}" alt="" />
+                        <img class="rounded-t-lg" src="{{URL('storage/photo/webresource/book_landing.png')}}" alt="" />
                     </a>
                     <div class="flex-grow p-5 flex flex-col">
                         <a href="/story/{{$story['id']}}">
@@ -82,7 +82,7 @@ s<!DOCTYPE html>
                 @foreach ($stories->take(5) as $story)
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{{URL('storage/webresource/book_landing.png')}}" alt="" />
+                        <img class="rounded-t-lg" src="{{URL('storage/photo/webresource/book_landing.png')}}" alt="" />
                     </a>
                     <div class="p-5 flex flex-col flex-grow">
                         <a href="/story/{{$story['id']}}">
@@ -117,7 +117,7 @@ s<!DOCTYPE html>
                 @foreach ($genres1->take(5) as $story)
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{{URL('storage/webresource/book_landing.png')}}" alt="" />
+                        <img class="rounded-t-lg" src="{{URL('storage/photo/webresource/book_landing.png')}}" alt="" />
                     </a>
                     <div class="p-5 flex flex-col flex-grow">
                         <a href="/story/{{$story['id']}}">
@@ -151,7 +151,7 @@ s<!DOCTYPE html>
                 @foreach ($genres2->take(5) as $story)
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{{URL('storage/webresource/book_landing.png')}}" alt="" />
+                        <img class="rounded-t-lg" src="{{URL('storage/photo/webresource/book_landing.png')}}" alt="" />
                     </a>
                     <div class="p-5 flex flex-col flex-grow">
                         <a href="/story/{{$story['id']}}">
@@ -185,7 +185,7 @@ s<!DOCTYPE html>
                 @foreach ($genres3->take(5) as $story)
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{{URL('storage/webresource/book_landing.png')}}" alt="" />
+                        <img class="rounded-t-lg" src="{{URL('storage/photo/webresource/book_landing.png')}}" alt="" />
                     </a>
                     <div class="p-5 flex flex-col flex-grow">
                         <a href="/story/{{$story['id']}}">
