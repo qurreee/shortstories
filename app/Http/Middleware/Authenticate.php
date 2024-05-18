@@ -19,6 +19,6 @@ class Authenticate
         if (Auth::check()) {
             return $next($request);
         }
-        return redirect('/')->withErrors('LOGIN DULU BJIR!');
+        return redirect('/login')->withErrors('LOGIN DULU BJIR!');
     }
 }

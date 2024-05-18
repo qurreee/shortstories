@@ -105,7 +105,7 @@ class StoryController extends Controller
     {
         $story = Story::find($id);
         $genres = Genre::all();
-        return view('edit', ['story' => $story, 'genres'=>$genres]);
+        return view('tailwind.editstory', ['story' => $story, 'genres'=>$genres]);
     }
 
     public function edit($id, Request $request){

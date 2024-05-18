@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoryController;
 use App\Models\Genre;
+use App\Models\Story;
 
 Route::get('/', function () {
     return view('tailwind.login');
@@ -29,7 +30,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //upload
-    Route::post('/upload-story', [StoryController::class, 'u    ']);
+    Route::post('/upload-story', [StoryController::class, 'upload']);
     //edit
     Route::get('/story/{id}/edit',[StoryController::class, 'gotoedit']);
     Route::post('/story/{id}/edit', [StoryController::class, 'edit']);
@@ -44,6 +45,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/coba', function(){
-    return view('tailwind.try');
+Route::get('/coba/1/2/3', function(){
+    $story = Story::first();
+    $genres = Genre::all();
+    return view('tailwind.try', ['story' => $story, 'genres'=>$genres]);
 });

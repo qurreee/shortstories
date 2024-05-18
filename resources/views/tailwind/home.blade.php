@@ -13,7 +13,7 @@ s<!DOCTYPE html>
             document.documentElement.classList.remove('dark')
         }
     </script>
-    <title>Home</title>
+    <title>ShortStories</title>
 </head>
 <body class="dark:bg-gray-900">
     <x-navbar/>
