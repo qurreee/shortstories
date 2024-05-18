@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //upload
-    Route::post('/upload-post', [StoryController::class, 'upload']);
+    Route::post('/upload-story', [StoryController::class, 'u    ']);
     //edit
     Route::get('/story/{id}/edit',[StoryController::class, 'gotoedit']);
     Route::post('/story/{id}/edit', [StoryController::class, 'edit']);
