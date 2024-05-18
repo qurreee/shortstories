@@ -25,11 +25,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/create-post', function () {
         $genres = Genre::all();
-        return view('/newpost', ['genres' => $genres]);
+        return view('tailwind.newstory', ['genres' => $genres]);
     });
 
     //upload
-    Route::post('/upload-post', [StoryController::class, 'upload']);
+    Route::post('/upload-story', [StoryController::class, 'u    ']);
     //edit
     Route::get('/story/{id}/edit',[StoryController::class, 'gotoedit']);
     Route::post('/story/{id}/edit', [StoryController::class, 'edit']);

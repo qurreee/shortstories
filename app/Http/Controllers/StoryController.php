@@ -6,7 +6,6 @@ use App\Models\Like;
 use App\Models\Genre;
 use App\Models\Story;
 use App\Models\Follower;
-use App\Models\GenreTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +19,7 @@ class StoryController extends Controller
             'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         $incomingFields['title'] = strip_tags($incomingFields['title']);
-        $incomingFields['body'] = strip_tags($incomingFields['body']);
+        $incomingFields['body'] = clean($incomingFields['body']);
         $incomingFields['user_id'] = auth()->id();
 
         if($request->hasFile('cover')){
