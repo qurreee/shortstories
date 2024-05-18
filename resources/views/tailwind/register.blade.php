@@ -22,17 +22,17 @@
     {{-- navbar --}}
     <x-navbar/>
     
-    <header class="container h-screen max-w-full bg-blue-100 flex justify-center items-center">
+    <header class="container h-screen max-w-full bg-blue-100 dark:bg-gray-900 flex justify-center items-center">
         <div class="md:p-10 md:mx-auto container flex gap-10 justify-center items-center">
             <div class="mx-auto hidden md:block ">
-                <h1 class="text-3xl font-bold md:text-5xl">Write Stories, Read Stories</h1>
-                <p class="text-lg md:text-xl">you can write or read short stories, start your writing journey here!</p>
+                <h1 class="text-3xl font-bold md:text-5xl dark:text-white">Write Stories, Read Stories</h1>
+                <p class="text-lg md:text-xl dark:text-gray-400">you can write or read short stories, start your writing journey here!</p>
             </div>
             
             {{-- login form --}}
-            <form action="/register" method="POST" class="bg-blue-200 min-w-80 p-10 rounded mx-auto">
+            <form action="/register" method="POST" class="bg-blue-200 dark:bg-gray-600 min-w-80 p-10 rounded mx-auto">
                 @csrf
-                <h3 class="text-2xl font-semibold text-center mb-3">Register</h3>
+                <h3 class="text-2xl font-semibold text-center mb-3 dark:text-white">Register</h3>
                 <div class="mb-3">
                     
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
