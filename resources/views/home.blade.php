@@ -10,6 +10,7 @@
 <body>
     <header>
         <x-navbar/>
+        <h1>JEHAN</h1>
     </header>
     <main class="mt-20">
         <form action="/create-post" method="POST">
