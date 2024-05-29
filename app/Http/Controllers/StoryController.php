@@ -8,6 +8,7 @@ use App\Models\Story;
 use App\Models\Follower;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class StoryController extends Controller
 {
@@ -25,7 +26,7 @@ class StoryController extends Controller
         if($request->hasFile('cover')){
             $cover = $request->file('cover');
             $covername = time() . '_' . $cover->getClientOriginalName();
-            $cover->storeAs('public/picfolder',$covername);
+            $cover->storeAs('public/photo/picfolder',$covername);
             $incomingFields['cover'] = $covername;
         }
         $story = Story::create($incomingFields);
@@ -51,8 +52,6 @@ class StoryController extends Controller
 
     public function like($id)
     {
-
-        $story = Story::find($id);
         $like = request('like');
         $userid = auth()->user()->id;
 
@@ -105,22 +104,41 @@ class StoryController extends Controller
     {
         $story = Story::find($id);
         $genres = Genre::all();
-        return view('tailwind.editstory', ['story' => $story, 'genres'=>$genres]);
+        return view('editstory', ['story' => $story, 'genres'=>$genres]);
     }
 
-    public function edit($id, Request $request){
+    public function edit($id, Request $request)
+    {
         $val = $request->input('edit');
         if($val == 1){
             $incomingFields = $request->validate([
                 'title' => 'required',
                 'body' => 'required',
-                'genres' => 'array'
+                'genres' => 'array',
+                'cover' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
             $incomingFields['title'] = strip_tags($incomingFields['title']);
             $incomingFields['body'] = strip_tags($incomingFields['body']);
             
             $story = Story::find($id);
-            $story->update(['title' => $incomingFields['title'], 'body' => $incomingFields['body']]);
+
+            if($request->hasFile('cover')){
+
+                $oldCover = $story->cover;
+                if($oldCover) {
+                    Storage::delete('public/photo/picfolder/' . $oldCover);
+                }
+                
+                $cover = $request->file('cover');
+                $covername = time() . '_' . $cover->getClientOriginalName();
+                $cover->storeAs('public/photo/picfolder',$covername);
+                $incomingFields['cover'] = $covername;
+                $story->update(['title' => $incomingFields['title'], 'body' => $incomingFields['body'], 'cover' => $incomingFields['cover']]);
+            }else{
+                $story->update(['title' => $incomingFields['title'], 'body' => $incomingFields['body']]);
+            }
+
+            
     
             $genres = $incomingFields['genres'];
             $story->genres()->sync($genres);
@@ -128,19 +146,24 @@ class StoryController extends Controller
         }elseif($val == 2){
             $story = Story::find($id);
             $story->genres()->detach();
+            $oldCover = $story->cover;
+            if($oldCover){
+                Storage::delete('public/picfolder/' . $oldCover);
+            }
             $story->likes()->delete();
             $story->delete();
             return redirect()->route('home');
         }
     }
 
-    public function stories(){
-        $topstories = Story::select('stories.id', 'stories.title', 'stories.body', DB::raw('COUNT(likes.story_id) as like_count'))
-    ->leftJoin('likes', 'stories.id', '=', 'likes.story_id')
-    ->groupBy('stories.id', 'stories.title', 'stories.body')
-    ->orderByDesc('like_count')
-    ->limit(5)
-    ->get();
+    public function stories()
+    {
+        $topstories = Story::select('stories.id', 'stories.title', 'stories.body', 'stories.cover', DB::raw('COUNT(likes.story_id) as like_count'))
+            ->leftJoin('likes', 'stories.id', '=', 'likes.story_id')
+            ->groupBy('stories.id', 'stories.title', 'stories.body', 'stories.cover')
+            ->orderByDesc('like_count')
+            ->limit(5)
+            ->get();
         // genres
         $genres = Genre::withCount('stories')->orderBy('stories_count', 'desc')->limit(3)->get();
 
@@ -158,8 +181,7 @@ class StoryController extends Controller
 
 
         $stories = Story::orderBy('created_at', 'desc')->get();
-        // tinggal ganti ke tailwind.home
-        return view('tailwind.home',
+        return view('home',
         ['stories' => $stories,
         'topstories' => $topstories,
         'genre1' => $genre1,
@@ -168,6 +190,7 @@ class StoryController extends Controller
         'genres1' => $genres1,
         'genres2' => $genres2,
         'genres3' => $genres3,
-    ]);
+        ]);
     }
+    
 }
