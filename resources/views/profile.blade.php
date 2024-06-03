@@ -90,12 +90,16 @@
                                             @php
                                                 $stories = $userprofile->stories;
                                             @endphp
-                                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto container justify-items-strecth">
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mx-auto container justify-items-strecth">
                                                     
                                                 @foreach ($stories as $story)
                                                 <div class=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col">
-                                                    <a href="#">
+                                                    <a href="/story/{{$story['id']}}">
+                                                        @if ($story->cover && $story->cover !== 'null')
+                                                        <img class="rounded-t-lg hidden sm:block object-cover max-h-56 object-center w-full" src="{{asset('storage/photo/picfolder/'.$story->cover)}}" alt="" />
+                                                        @else
                                                         <img class="rounded-t-lg hidden sm:block object-scale-down max-h-56 object-center w-full" src="{{URL('storage/photo/webresource/book_landing.png')}}" alt="" />
+                                                        @endif   
                                                     </a>
                                                     <div class="p-5 flex flex-col flex-grow">
                                                         <a href="/story/{{$story['id']}}">
@@ -126,16 +130,10 @@
                             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 w-1/2 mx-auto">Upload</button>
                         </div> --}}
                     </div>
-            
-
         </main>
-
-    
-
-
-
     <x-upbutton/>
     <x-footer/>
     @stack('scripts')
+    @stack('search')
 </body>
 </html>

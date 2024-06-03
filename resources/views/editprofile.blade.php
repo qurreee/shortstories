@@ -68,5 +68,6 @@
         </div>
     </main>
     <x-footer/>
+    @stack('search')
 </body>
 </html>

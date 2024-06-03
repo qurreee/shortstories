@@ -15,7 +15,7 @@ s<!DOCTYPE html>
     </script>
     <title>ShortStories</title>
 </head>
-<body class="bg-gray-900">
+<body class="dark:bg-gray-900 bg-white">
     <x-navbar/>
     {{-- head --}}
     <section class="bg-white dark:bg-gray-900 max-w-full h-screen flex justify-center items-center">
@@ -233,5 +233,6 @@ s<!DOCTYPE html>
         });
     </script>
     @stack('scripts')
+    @stack('search')
 </body>
 </html>
