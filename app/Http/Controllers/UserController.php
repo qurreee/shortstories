@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Follower;
+use App\Models\Like;
+use App\Models\Story;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -123,5 +125,13 @@ class UserController extends Controller
             }
             return redirect('/profile/' . urlencode($user->name))->with('success', 'Profile updated successfully');
             
+        }
+        public function likeView(){
+            $userid = Auth::user()->id;
+
+            $likedStories = Like::where('user_id', $userid)->pluck('story_id');
+            $stories = Story::whereIn('id', $likedStories)->get();
+
+            return view('likeview', ['stories' =>$stories]);
         }
 }

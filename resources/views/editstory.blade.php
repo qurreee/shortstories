@@ -86,5 +86,6 @@
                 console.error( error );
             } );
     </script>
+    @stack('search')
 </body>
 </html>

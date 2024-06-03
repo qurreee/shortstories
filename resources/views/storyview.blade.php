@@ -21,7 +21,6 @@
         <div class="container mx-auto mb-10">
             <h1 class=" text-center mt-10 mb-10 text-4xl sm:text-5xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">{{ $story->title }}</h1>
         </div>
-        <form enctype="multipart/form-data" action="/upload-story" method="POST">
                 @csrf
                 <div class="mx-auto max-w-screen-xl px-4 2xl:px-0" >
                     @if ($story->cover && $story->cover !== 'null')
@@ -33,11 +32,11 @@
                                    
                                     <img class="rounded-lg hidden sm:block max-h-lvh object-cover w-full" src="{{asset('storage/photo/picfolder/'.$story->cover)}}" alt="" />
                                     
-                                </div>
                             </div>
-                            
                         </div>
-                        @endif
+                            
+                    </div>
+                    @endif
                         <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl mb-5">
                             <div class=" p-5 border border-gray-300 rounded-lg bg-white justify-normal dark:bg-gray-800 dark:border-gray-600 ">
                                 <div>
@@ -48,10 +47,11 @@
                                     
                                 </div>
                                 <div>
+                                    
                                     <label for="genre" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Genres</label>
                                     <div class="flex gap-5 justify-left mb-2">
                                         @foreach ($story->genres as $genre)
-                                        <a href="" >
+                                        <a href="/genre/{{ $genre-> genre_name }}" >
                                             <div class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800  mx-auto h-fit">
                                                 {{$genre->genre_name}}
                                             </div>
@@ -59,37 +59,45 @@
                                         @endforeach
                                     </div>
                                 </div>
-
-                                <div>
+                                <div class="mb-2">
                                     @php
                                     $user = auth()->user();
-                                 @endphp
+                                    @endphp
                                  @if ($story->user_id == $user->id)
-                                 
                                      <a href="/story/{{ $story->id }}/edit">
                                         <div class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 h-fit w-fit" name="edit">edit</div>
                                     </a>
-                                     
-
+                                @else
+                                    <form action="/story/{{$story->id}}/like" method="POST" >
+                                        @csrf
+                                        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 h-fit w-fit"  type="submit" id="like" name="like" value="1">Like</button>
+                                        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 h-fit w-fit"  type="submit" id="dislike" name="like" value="2">Dislike</button>
+                                    </form>
                                 @endif
-                                   
-
                                 </div>
-                                
+                                <div >
+                                    <label for="likecount" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Likes</label>
+                                    <div class="text-white bg-blue-700  font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600  h-fit w-fit"> {{ $likecount }}</div>
+                                </div>
                                 
                             </div>
 
                         </div>
                     </div>
-                    <div class=" p-5 border border-gray-300 rounded-lg bg-white justify-normal dark:bg-gray-800 dark:border-gray-600 lg:max-w-2xl xl:max-w-4xl mx-auto ">
-                        <di class=" text-lg font-medium text-gray-900 dark:text-white">
-                            {!! $story->body !!}
+
+                    {{-- story vbody --}}
+                    <div>
+                        <div class=" p-5 border border-gray-300 rounded-lg bg-white justify-normal dark:bg-gray-800 dark:border-gray-600 lg:max-w-2xl xl:max-w-4xl mx-auto ] ">
+                            <div class=" text-lg font-medium text-gray-900 dark:text-white ">
+                                {!! $story->body !!}
+                            </div>
                         </div>
-                        
                     </div>
+                    
                 </div>
-        </form>
+        
     </main>
     <x-footer/>
+    @stack('search')
 </body>
 </html>

@@ -20,7 +20,7 @@
     </style>
     <title>ShortStories</title>
 </head>
-<body class="dark:bg-gray-900">
+<body class="bg-white dark:bg-gray-900">
     <x-navbar/>
     <div class="min-h-screen max-w-full bg-white dark:bg-gray-900 justify-center content-center ">
         <main class="self-center">
@@ -86,5 +86,6 @@
                 console.error( error );
             } );
     </script>
+    @stack('search')
 </body>
 </html>

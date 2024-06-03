@@ -47,12 +47,20 @@ Route::middleware('auth')->group(function () {
 
     //follow
     Route::post('/story/{id}/follow', [StoryController::class, 'follow']);
+
+    //genre
+    Route::get('/genre/{genrename}', [StoryController::class, 'genreview']);
+
+    //search
+    Route::get('/search', [StoryController::class, 'search'])->name('search');
+
+    Route::get('/mylikes', [UserController::class, 'likeView']);
     
     Route::get('/coba', function(){
         $stories = Story::get();
         $genres = Genre::all();
         $userprofile = User::first();
-        return view('backend.home', ['stories' => $stories, 'genres'=>$genres, 'userprofile' =>$userprofile]);
+        return view('genreview', ['stories' => $stories, 'genres'=>$genres, 'userprofile' =>$userprofile]);
     });
     
     //profile this need tobe at the bottom
@@ -67,12 +75,11 @@ Route::middleware('auth')->group(function () {
             abort(404);
         }
     });
+    
     Route::post('/profile/{username}/follow', [UserController::class, 'follow']);
     Route::get('/profile/{username}/edit', [UserController::class, 'gotoEdit'] );
     
     Route::post('/profile/{username}/edit', [UserController::class, 'edit']);
-    
-
     
     
     

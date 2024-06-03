@@ -42,12 +42,13 @@ class StoryController extends Controller
     public function view($id)
     {
         $story = Story::with('writer','genres')->find($id);
+        $likecount = $story->likeCount();
 
         if (!$story) {
             return redirect()->route('home')->with('error', 'Story not found');
         }
 
-        return view('storyview', compact('story'));
+        return view('storyview', ['story' =>$story, 'likecount' => $likecount]);
     }
 
     public function like($id)
@@ -192,5 +193,20 @@ class StoryController extends Controller
         'genres3' => $genres3,
         ]);
     }
+
+    public function genreview($genrename){
+        $genre = Genre::where('genre_name', $genrename)->first();
+        $stories = $genre->stories;
+        return view('genreview', ['stories' => $stories,
+    'genrename' =>$genrename]);
+    }
     
+    public function search(Request $request){
+        $query = $request->input('search');
+        $stories = Story::whereRaw('LOWER(title) LIKE ?', ['%' . strtolower($query) . '%'])
+                ->orWhereRaw('LOWER(body) LIKE ?', ['%' . strtolower($query) . '%'])
+                ->get();
+        return view('search', ['stories' => $stories, 'query'=>$query]);
+        
+    }
 }
